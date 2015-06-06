@@ -9,15 +9,19 @@ ADapTV.controller('HomeController', ['$scope', '$rootScope', '$http', '$location
 				var seconds = $scope.today.getTime() / 1000;
 
 				for (var i = 0; i < data.length; i++) {
+					data[i].categories = [];
+
 					for (var j = 0; j < data[i].programmes.length; j++) {
 
 						if (data[i].programmes[j].start <= seconds && seconds <= data[i].programmes[j].stop) {
 							data[i].now = data[i].programmes[j];
 
 							if (data[i].programmes[j].category) {
-								data[i].categories = [];
-								data[i].categories = data[i].programmes[j].categories;
 								data[i].categories.push(data[i].programmes[j].category);
+							}
+
+							for (var k = 0; k < data[i].programmes[j].categories.length; k++) {
+								data[i].categories.push(data[i].programmes[j].categories[k]);
 							}
 
 							if (data[i].programmes[j + 1]) {
