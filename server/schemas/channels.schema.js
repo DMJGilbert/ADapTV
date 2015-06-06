@@ -4,6 +4,7 @@ var channelsSchema = mongoose.Schema({
 	name: String,
 	serviceId: Number,
 	providerId: Number,
+	stream: String,
 	programmes: [{
 		title: String,
 		serviceId: Number,
