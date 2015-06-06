@@ -11,28 +11,25 @@ module.exports = function (app) {
 	//		.post(users.create);
 	app.route('/api/streams')
 		.get(function (req, res) {
-//			var streams = [];
-//
-//			Channel.find({
-//				providerId: 3
-//			}).exec(function (err, data) {
-//				for (var i = 0; data.length; i++) {
-//					Programme.find({
-//						serviceId: data[i].serviceId
-//					}).exec(function (err, data) {
-//						streams.push({
-//							'name': data[i].name,
-//							'programmes': data
-//						})
-//					});
-//				}
-//			});
+			var streams = [];
 
-			res.json({
-				'name': 'Max John Maybury'
+			Channel.find({
+				$or: [{
+					serviceId: 8258
+						}, {
+					serviceId: 8384
+						}, {
+					serviceId: 4163
+						}, {
+					serviceId: 4287
+						}, {
+					serviceId: 8500
+						}],
+				providerId: 3
+			}).sort({'providerId': 1}).exec(function (err, data) {
+				res.json(data);
 			});
 		})
-
 
 	//	// Finish by binding the user middleware
 	//	app.param('userId', users.userById);
