@@ -15,11 +15,11 @@ module.exports = function (app) {
 
 			Channel.find({
 				$or: [{
-					serviceId: 8258
+					serviceId: 8261
 						}, {
 					serviceId: 8384
 						}, {
-					serviceId: 4163
+					serviceId: 4172
 						}, {
 					serviceId: 4287
 						}, {

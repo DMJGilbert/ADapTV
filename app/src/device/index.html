@@ -1,0 +1,51 @@
+<html>
+
+<head>
+	<style>
+		body {
+			background: transparent;
+		}
+	</style>
+</head>
+
+<body>
+
+
+	<script>
+		window.stb = createStbPlugin();
+		stb.enableVideo();
+
+		stb.play("http://78.129.175.72/live/itv/itv.m3u8");
+
+		function createStbPlugin() {
+			try {
+				var parentNode = document.getElementsByTagName("body")[0];
+				var obj = document.createElement("div");
+				obj.innerHTML = '<object type="application/x-dune-stb-api" style="visibility: hidden; width: 0px; height: 0px;"></object>';
+				parentNode.appendChild(obj);
+				return obj.getElementsByTagName("object")[0];
+			} catch (e) {
+				return undefined;
+			}
+		}
+
+		if (navigator.userAgent.search(/opera/i) != -1) {
+			window.onkeypress = keyHandler;
+		}
+
+		function keyHandler(event) {
+			try {
+				var code = event.keyCode;
+				if (code == stb.KEY_A) {
+					location.href = "http://http://192.168.137.1:3700/device";
+				}
+				if (code == stb.KEY_D) {
+					stb.launchNativeUi();
+
+				}
+			} catch (e) {}
+		}
+	</script>
+</body>
+
+</html>

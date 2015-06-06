@@ -7,6 +7,8 @@ var io = require('socket.io').listen(server);
 var mongoose = require('mongoose');
 var request = require('request');
 
+require('./server/tasks.js');
+
 var port = process.env.PORT || 3700;
 
 app.use(require('prerender-node'));
@@ -25,8 +27,6 @@ mongoose.connect('mongodb://localhost/adaptv');
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function (callback) {});
-
-var Channel = require('./server/schemas/channels.schema.js');
 
 // for when not using socket.io
 server.listen(port);
