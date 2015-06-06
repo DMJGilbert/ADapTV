@@ -1,36 +1,34 @@
-'use strict';
-/**
- * Module dependencies.
- */
-var init = require('./config/init')(),
-	config = require('./config/config'),
-	mongoose = require('mongoose'),
-	chalk = require('chalk');
+var express = require("express");
+var http = require('http');
+var fs = require('fs');
+var app = express();
+var server = http.createServer(app);
+var io = require('socket.io').listen(server);
 
-/**
- * Main application entry file.
- * Please note that the order of loading is important.
- */
+var port = process.env.PORT || 3700;
 
-// Bootstrap db connection
-var db = mongoose.connect(config.db, function(err) {
-	if (err) {
-		console.error(chalk.red('Could not connect to MongoDB!'));
-		console.log(chalk.red(err));
-	}
-});
+app.use(require('prerender-node'));
 
-// Init the express application
-var app = require('./config/express')(db);
+require('./server/routes/adaptv.routes.js')(app);
 
-// Bootstrap passport config
-require('./config/passport')();
+// define the root directory for the client files
+app.use(express.static('app/src'));
 
-// Start the app by listening on <port>
-app.listen(config.port);
+// define the directory for the lib folder
+app.use('/lib', express.static('app/lib'));
 
-// Expose app
-exports = module.exports = app;
+//define the root directory for the client files
+//app.all("/*", function (req, res, next) {
+//	res.sendfile("index.html", {
+//		root: __dirname + "/app/src"
+//	});
+//});
 
-// Logging initialization
-console.log('MEAN.JS application started on port ' + config.port);
+
+// for when not using socket.io
+server.listen(port);
+
+// when using socket.io
+// var io = require('socket.io').listen(app.listen(port));
+
+console.log("Listening on port " + port);
