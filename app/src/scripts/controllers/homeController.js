@@ -17,7 +17,7 @@ ADapTV.controller('HomeController', ['$scope', '$rootScope', '$http', '$location
 							data[i].now = data[i].programmes[j];
 
 							if (data[i].programmes[j].category) {
-								data[i].categories.push(data[i].programmes[j].category);
+								data[i].categories.push({'keyword': data[i].programmes[j].category, 'weighting': 1});
 							}
 
 							for (var k = 0; k < data[i].programmes[j].categories.length; k++) {
