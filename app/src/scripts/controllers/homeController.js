@@ -12,20 +12,28 @@ ADapTV.controller('HomeController', ['$scope', '$rootScope', '$http', '$location
 
 					if (data[i].programmes[j].start <= seconds && seconds <= data[i].programmes[j].stop) {
 						data[i].now = data[i].programmes[j];
-						
+
 						if (data[i].programmes[j + 1]) {
 							data[i].next = data[i].programmes[j + 1];
 						}
-						
+
 						break;
 					}
 				}
 			}
 
 			$scope.channels = data;
-			
+
 			console.log($scope.channels);
 		});
+
+		$scope.today = new Date();
+
+		setInterval(function () {
+			$scope.$apply(function () {
+				$scope.today = new Date()
+			})
+		}, 3000);
 
 	}
 	]);
