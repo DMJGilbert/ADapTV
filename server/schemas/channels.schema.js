@@ -12,7 +12,12 @@ var channelsSchema = mongoose.Schema({
 		start: Number,
 		stop: Number,
 		desc: String,
-		category: String
+		category: String,
+		epgChecked: Boolean,
+		categories: [{
+			keyword: String,
+			weighting: Number
+		}]
 	}]
 })
 
