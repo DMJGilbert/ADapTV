@@ -1,22 +1,52 @@
-<div style="margin: 0 auto; text-align: center;">
-	<div style="width: 20%; padding: 30px; display: inline-block;" ng-repeat="channel in channels | orderBy:'serviceId'" class="stream">
+<div style="width: 100%; margin: 0 auto; text-align: center;">
+	<div style="width: 70%; margin: 30px auto;">
 		<div class="ui dividing header">
 			<div class="content">
-				{{ channel.name }} <i style="color: green;" class="checkmark icon"></i>
+				User A
 			</div>
 		</div>
 		<div>
 			<div style="display: inline-block;">
-				<img style="height:100px; width: 175px;" class="ui small image" src="/images/stream/{{ channel.serviceId }}.jpg?{{ today }}">
-			</div>
-			<div style="display: inline-block;">
 				<div style="height: 60px;" class="now">
-					<strong>Now:</strong> {{ channel.now.title }}
-				</div>
-				<div style="height: 60px;" class="next">
-					<strong>Next:</strong> {{ channel.next.title }}
+					<strong>Watching:</strong> {{ channel.now.title }}
 				</div>
 			</div>
 		</div>
 	</div>
+</div>
+
+<div style="width: 100%; text-align: center;">
+	<div style="width: 70%; margin: 0 auto; margin-bottom: 20px;" class="ui dividing header">
+		<div class="content">
+			Channels
+		</div>
+	</div>
+
+	<table>
+		<thead>
+			<th ng-repeat="channel in channels | orderBy:'serviceId'">
+				{{ channel.name }} <i style="color: green;" class="checkmark icon"></i>
+			</th>
+		</thead>
+		<tbody>
+			<td ng-repeat="channel in channels | orderBy:'serviceId'">
+				<div>
+					<div style="display: inline-block;">
+						<img style="height:100px; width: 175px;" class="ui small image" src="/images/stream/{{ channel.serviceId }}.jpg?{{ today }}">
+					</div>
+					<div style="display: inline-block;">
+						<div class="now">
+							<strong>Now:</strong> {{ channel.now.title }}
+						</div>
+						<div style="padding-bottom: 20px;" class="next">
+							<strong>Next:</strong> {{ channel.next.title }}
+						</div>
+						<div ng-repeat="category in channel.categories" style="display: inline-block;">
+							<strong>{{ category }}</strong> 1
+						</div>
+					</div>
+				</div>
+			</td>
+		</tbody>
+	</table>
 </div>
