@@ -2,7 +2,7 @@
 	"name": "MaxJMay",
 	"version": "0.0.0",
 	"dependencies": {
-		"bootstrap": "*",
+		"semantic-ui": "*",
 		"fontawesome": "*",
 		"angular": "~1.*",
 		"angular-route": "~1.*",

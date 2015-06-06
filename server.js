@@ -27,52 +27,48 @@ db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function (callback) {});
 
 var Channel = require('./server/schemas/channels.schema.js');
-var Programme = require('./server/schemas/programmes.schema.js');
 
+Channel.find({
+	providerId: 3,
+	programmes: null
+}, 'serviceId providerId').lean().limit(50).exec(function (err, data) {
+	request(, function (error, response, body) {		
+		console.log(response);
+		if (!error && response.statusCode == 200) {
+			body = JSON.parse(body);
 
-//request('http://epg.techex.co.uk/index.php?username=' + process.env.USERNAME + '&password=' + process.env.PASSWORD, function (error, response, body) {
-//	if (!error && response.statusCode == 200) {
-//		body = JSON.parse(body);
-//		
-//		for (var i = 0; i < body.channels.length; i++) {
-//			var channel = new Channel({
-//				name: body.channels[i]['display-name'],
-//				providerId: body.channels[i].providerId,
-//				serviceId: body.channels[i].serviceId,
-//			});
-//
-//			channel.save(function (err, channel) {
-//				if (err) return console.error(err);
-//			});
-//		}
-//	}
-//})
+			var programmes = [];
+			for (var i = 0; i < body.programmes.length; i++) {
+				if (!programmes[body.programmes[i].serviceId]) {
+					programmes[body.programmes[i].serviceId] = [];
+				}
 
-//Channel.find({
-//	providerId: 3
-//}).limit(20).exec(function (err, data) {
-//	request('http://epg.techex.co.uk/index.php?username=' + process.env.USERNAME + '&password=' + process.env.PASSWORD, function (error, response, body) {
-//		if (!error && response.statusCode == 200) {
-//			body = JSON.parse(body);
-//			for (var i = 0; i < body.programmes.length; i++) {
-//				var programme = new Programme({
-//					title: body.programmes[i].title,
-//					serviceId: body.programmes[i].serviceId,
-//					providerId: body.programmes[i].providerId,
-//					start: body.programmes[i].start,
-//					stop: body.programmes[i].stop,
-//					desc: body.programmes[i].desc,
-//					category: body.programmes[i].category
-//				});
-//
-//				programme.save(function (err, programme) {
-//					if (err) return console.error(err);
-//				});
-//			}
-//		}
-//	})
-//});
-
+				programmes[body.programmes[i].serviceId].push({
+					title: body.programmes[i].title,
+					serviceId: body.programmes[i].serviceId,
+					providerId: body.programmes[i].providerId,
+					start: body.programmes[i].start,
+					stop: body.programmes[i].stop,
+					desc: body.programmes[i].desc,
+					category: body.programmes[i].category
+				});
+			}
+			
+			for (var i = 0; i < data.length; i++) {
+				Channel.findOne({
+					serviceId: data[i].serviceId
+				}).exec(function (err, channel) {
+					channel.programmes = programmes[channel.serviceId] || [];
+					channel.save(function (error, data) {
+						if (error) {
+							console.log(error);
+						}
+					});
+				});
+			}
+		}
+	})
+});
 
 // for when not using socket.io
 server.listen(port);
