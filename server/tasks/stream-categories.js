@@ -20,7 +20,35 @@ setInterval(function () {
 					if (err) {
 						console.log(err);
 					}
-					console.log(results.body);
+					var data = JSON.parse(results.body);
+					if (data.imageKeywords && data.imageKeywords.length) {
+						var current;
+						var seconds = new Date().getTime() / 1000;
+						for (var i = 0; i < channel.programmes.length; i++) {
+							var programme = channel.programmes[i];
+							var start = new Date(programme.start);
+							var stop = new Date(programme.stop);
+							if (start < seconds && stop > seconds) {
+								data.imageKeywords.forEach(function (imageKey) {
+									var contine = false;
+									for (var j = 0; j < channel.programmes[i].categories.length; j++) {
+										if (channel.programmes[i].categories.toLowerCase() == imageKey.text.toLowerCase()) {
+											channel.programmes[i].categories[j].weighting = channel.programmes[i].categories[j].weighting + 1 / 2;
+											contine = true;
+										}
+									}
+
+									if (!contine) {
+										channel.programmes[i].categories.push({
+											keyword: key.text,
+											weighting: key.score
+										});
+									}
+								});
+								break;
+							}
+						};
+					}
 				})
 			})
 		});
