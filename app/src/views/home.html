@@ -1,19 +1,21 @@
-<div ng-repeat="channel in channels | orderBy:'serviceId'" class="stream">
-	<div class="ui dividing header">
-		<div class="content">
-			{{ channel.name }}
-		</div>
-	</div>
-	<div>
-		<div style="display: inline-block;">
-			<img class="ui small image" src="/images/stream/{{ channel.serviceId }}.jpg">
-		</div>
-		<div style="display: inline-block;">
-			<div class="now">
-				Now: {{ channel.now.title }}
+<div style="margin: 0 auto; text-align: center;">
+	<div style="width: 20%; padding: 30px; display: inline-block;" ng-repeat="channel in channels | orderBy:'serviceId'" class="stream">
+		<div class="ui dividing header">
+			<div class="content">
+				{{ channel.name }} <i style="color: green;" class="checkmark icon"></i>
 			</div>
-			<div class="next">
-				Next: {{ channel.next.title }}
+		</div>
+		<div>
+			<div style="display: inline-block;">
+				<img style="height:100px; width: 175px;" class="ui small image" src="/images/stream/{{ channel.serviceId }}.jpg?{{ today }}">
+			</div>
+			<div style="display: inline-block;">
+				<div style="height: 60px;" class="now">
+					<strong>Now:</strong> {{ channel.now.title }}
+				</div>
+				<div style="height: 60px;" class="next">
+					<strong>Next:</strong> {{ channel.next.title }}
+				</div>
 			</div>
 		</div>
 	</div>
