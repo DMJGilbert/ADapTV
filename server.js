@@ -8,6 +8,7 @@ var mongoose = require('mongoose');
 var request = require('request');
 
 var Channels = require('./server/schemas/channels.schema.js');
+var Users = require('./server/schemas/users.schema.js');
 
 require('./server/tasks.js');
 
@@ -52,12 +53,19 @@ io.on('connection', function (socket) {
 		});
 	});
 
-	socket.on('viewing', function (){
-
+	socket.on('viewing', function (data) {
+		Users.findOne({}, function (err, user) {
+			user.watching = data;
+			user.save();
+		})
 	});
 
 	socket.on('disconnect', function (data) {
 		//Set as not viewing channels
+		Users.findOne({}, function (err, user) {
+			user.watching = -1;
+			user.save();
+		})
 	})
 });
 
