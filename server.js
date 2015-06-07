@@ -9,6 +9,7 @@ var request = require('request');
 
 var Channels = require('./server/schemas/channels.schema.js');
 var Users = require('./server/schemas/users.schema.js');
+var Adverts = require('./server/schemas/adverts.schema.js');
 
 require('./server/tasks.js');
 
@@ -72,10 +73,38 @@ io.on('connection', function (socket) {
 });
 
 app.route('/api/forcead').get(function (req, res) {
-	io.emit('advert', {
-		stream: 'http://mp4://192.168.137.1:3700/adverts/5573bee60d70a26835df8e17.mp4',
-		time: 6000
-	});
+	Users.findOne({}, function (err, user) {
+		Adverts.find({}, function (err, ads) {
+			var send = [];
+			ads.forEach(function (ad) {
+				var tempScore = 0;
+				user.categories.forEach(function (cat) {
+					ad.categories.forEach(function (adCat) {
+						if (cat.keyword.toLowerCase() == adCat.keyword.toLowerCase()) {
+							tempScore += cat.keyword.occurences;
+						}
+					})
+				});
+				if (tempScore > 0) {
+					send.push({
+						score: tempScore,
+						ad: ad
+					});
+				}
+			});
+			try {
+				var derp = Math.min(Math.round(Math.random() * send.length), 0);
+				console.log(derp);
+				var selectedAd = send[derp];
+				io.emit('advert', {
+					stream: 'http://mp4://192.168.137.1:3700/adverts/' + selectedAd.ad._id + '.mp4',
+					time: 6000
+				});
+			} catch (e) {
+				console.log(e);
+			}
+		})
+	})
 });
 
 app.all('/*', function (req, res, next) {

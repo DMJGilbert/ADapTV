@@ -35,7 +35,7 @@ setInterval(function () {
 							keyword: key.text,
 							occurences: 1
 						})
-					})
+					});
 					channel.programmes[i].categories = cats;
 					channel.programmes[i].epgChecked = true;
 					channel.programmes[i].categoriesOccurences = cats.length;
