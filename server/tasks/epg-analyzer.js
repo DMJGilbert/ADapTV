@@ -24,7 +24,7 @@ setInterval(function () {
 				}
 			};
 			if (current && !current.epgChecked) {
-				request.get('http://access.alchemyapi.com/calls/text/TextGetRankedKeywords?outputMode=json&apikey=8542f9b2e3dec89ec49bb80f1f68a84296fbd883&text=' + current.desc, function (err, results) {
+				request.get('http://access.alchemyapi.com/calls/text/TextGetRankedKeywords?outputMode=json&apikey=0c2fa8eb5bec107889f229f7ec5f0d3803c65122&text=' + current.desc, function (err, results) {
 					if (err) {
 						console.log(err);
 					}

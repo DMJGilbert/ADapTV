@@ -18,7 +18,7 @@ setInterval(function () {
 			try {
 				imgur.uploadFile('./app/src/images/stream/' + channel.serviceId + '.jpg').then(function (json) {
 					console.log(json);
-					request.get('http://access.alchemyapi.com/calls/url/URLGetRankedImageKeywords?outputMode=json&apikey=8542f9b2e3dec89ec49bb80f1f68a84296fbd883&forceShowAll=1&url=' + json.data.link, function (err, results) {
+					request.get('http://access.alchemyapi.com/calls/url/URLGetRankedImageKeywords?outputMode=json&apikey=0c2fa8eb5bec107889f229f7ec5f0d3803c65122&forceShowAll=1&url=' + json.data.link, function (err, results) {
 						if (err) {
 							console.log(err);
 						}

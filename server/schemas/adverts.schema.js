@@ -4,10 +4,8 @@ var advertsSchema = mongoose.Schema({
 	name: String,
 	stream: String,
 	categories: [{
-		keyword: String,
-		count: Number
-		}],
-	categoryCount: Number,
+		keyword: String
+	}],
 	views: Number
 })
 

@@ -71,6 +71,13 @@ io.on('connection', function (socket) {
 	})
 });
 
+app.route('/api/forcead').get(function (req, res) {
+	io.emit('advert', {
+		stream: 'http://mp4://192.168.137.1:3700/adverts/5573bee60d70a26835df8e17.mp4',
+		time: 6000
+	});
+});
+
 app.all('/*', function (req, res, next) {
 	res.sendFile('index.html', {
 		root: './app/src'

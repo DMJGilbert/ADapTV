@@ -9,3 +9,4 @@ app/tests/coverage/
 .idea/
 /ffmpeg.exe
 app/lib/*
+/app/src/adverts/
