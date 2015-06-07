@@ -17,16 +17,27 @@ ADapTV.controller('HomeController', ['$scope', '$rootScope', '$http', '$location
 							data[i].now = data[i].programmes[j];
 
 							if (data[i].programmes[j].category) {
-								data[i].categories.push({'keyword': data[i].programmes[j].category, 'weighting': 1});
+								data[i].categories.push({
+									'keyword': data[i].programmes[j].category,
+									'weighting': 1
+								});
 							}
 
-							for (var k = 0; k < data[i].programmes[j].categories.length; k++) {
-								data[i].categories.push(data[i].programmes[j].categories[k]);
+							//							for (var k = 0; k < data[i].programmes[j].categories.length; k++) {
+							//								data[i].categories.push(data[i].programmes[j].categories[k]);
+							//							}
+
+							for (var k = 0; k < 10; k++) {
+								data[i].categories.push({
+									'keyword': 'Test',
+									'weighting': 0.7
+								});
 							}
 
 							if (data[i].programmes[j + 1]) {
 								data[i].next = data[i].programmes[j + 1];
 							}
+
 
 							break;
 						}
@@ -36,16 +47,23 @@ ADapTV.controller('HomeController', ['$scope', '$rootScope', '$http', '$location
 				$scope.channels = data;
 
 				console.log($scope.channels);
+
+				setTimeout(function () {
+					$('.ui.progress').progress();
+				}, 1000);
+
 			});
 		}
 
 		$scope.today = new Date();
 
-		setInterval(function () {
-			$scope.$apply(function () {
-				$scope.reloadData();
-			})
-		}, 3000);
+		$scope.reloadData();
+
+		//		setInterval(function () {
+		//			$scope.$apply(function () {
+		//				$scope.reloadData();
+		//			})
+		//		}, 3000);
 
 	}
 	]);

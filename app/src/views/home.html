@@ -1,54 +1,42 @@
-<img style="margin: 0 auto;" class="ui small image" src="/images/logo-dark.png">
-
-<div style="width: 100%; margin: 0 auto; text-align: center;">
-	<div style="width: 70%; margin: 30px auto;">
-		<div class="ui dividing header">
-			<div class="content">
-				User A
-			</div>
-		</div>
-		<div>
-			<div style="display: inline-block;">
-				<div style="height: 60px;" class="now">
-					<strong>Watching:</strong> {{ channel.now.title }}
-				</div>
-			</div>
-		</div>
-	</div>
+<div style="height: 300px; background-color: #000;">
+	<img style="margin: 0 auto;" class="ui small image" src="/images/logo-light.png">
 </div>
 
 <div style="width: 100%; text-align: center;">
-	<div style="width: 70%; margin: 0 auto; margin-bottom: 20px;" class="ui dividing header">
-		<div class="content">
-			Channels
-		</div>
-	</div>
+	<div style="border: 1px solid #000; overflow: auto; width: 70%; text-align: center; margin: 0 auto; margin-top: 20px;" ng-repeat="channel in channels | orderBy:'serviceId'">
+		<div style="background-color: rgba(179, 179, 179, 0.2); height: 200px;">
+			<div style="display: inline-block; float: left;">
+				<img class="ui image" style="width: 300px; height: 200px;" src="/images/stream/{{ channel.serviceId }}.jpg?{{ today }}">
+			</div>
 
-	<table>
-		<thead>
-			<th ng-repeat="channel in channels | orderBy:'serviceId'">
-				{{ channel.name }} <i style="color: green;" class="checkmark icon"></i>
-			</th>
-		</thead>
-		<tbody>
-			<td ng-repeat="channel in channels | orderBy:'serviceId'">
-				<div>
-					<div style="display: inline-block;">
-						<img style="height:100px; width: 175px;" class="ui small image" src="/images/stream/{{ channel.serviceId }}.jpg?{{ today }}">
-					</div>
-					<div style="display: inline-block;">
-						<div class="now">
-							<strong>Now:</strong> {{ channel.now.title }}
-						</div>
-						<div style="padding-bottom: 20px;" class="next">
-							<strong>Next:</strong> {{ channel.next.title }}
-						</div>
-						<div ng-repeat="category in channel.categories | orderBy:'-weighting'" style="display: inline-block;">
-							<strong>{{ category.keyword }}</strong> {{ category.weighting }}
-						</div>
+			<div style="display: inline-block; text-align: left; width: 64%;">
+				<div style="font-size: 30px;">
+					{{ channel.name }} <i style="color: green;" class="checkmark icon"></i>
+				</div>
+				<div style="font-size: 20px;" class="now">
+					<strong>Now:</strong> {{ channel.now.title }}
+				</div>
+				<div style="font-size: 20px;" class="next">
+					<strong>Next:</strong> {{ channel.next.title }}
+				</div>
+				<div style="font-size: 20px;" class="next">
+					<strong>Viewers:</strong> 1
+				</div>
+			</div>
+		</div>
+		<div style="background-color: #FFF;">
+			<div style="text-align: center; margin: 10px;" ng-repeat="category in channel.categories | orderBy:'-weighting' | limitTo:10">
+				<div style="display: inline-block; width: 100%; margin: 0 auto;">
+					<div style="width:80%; margin: 0 auto;" class="ui teal progress" data-percent="{{ (category.weighting * 100) }}" id="example1">
+						<div class="bar"></div>
+						<div class="label"><strong>{{ category.keyword }}</strong> {{ (category.weighting * 100) }}%</div>
 					</div>
 				</div>
-			</td>
-		</tbody>
-	</table>
+
+				<div style="display: inline-block; width: 75%;">
+
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
