@@ -33,31 +33,36 @@ setInterval(function () {
 								var stop = new Date(programme.stop);
 								if (start < seconds && stop > seconds) {
 									data.imageKeywords.forEach(function (imageKey) {
-										var contine = false;
-										for (var j = 0; j < channel.programmes[i].categories.length; j++) {
-											if (channel.programmes[i].categories[j].keyword.toLowerCase() == imageKey.text.toLowerCase()) {
-												channel.programmes[i].categories[j].count += 1
-												contine = true;
+										try {
+											var contine = false;
+											for (var j = 0; j < channel.programmes[i].categories.length; j++) {
+												if (channel.programmes[i].categories[j].keyword.toLowerCase() == imageKey.text.toLowerCase()) {
+													channel.programmes[i].categories[j].occurences = (channel.programmes[i].categories[j].occurences || 0) + 1
+													contine = true;
+												}
 											}
-										}
 
-										if (!contine) {
-											console.log(imageKey);
-											channel.programmes[i].categories.push({
-												keyword: imageKey.text,
-												count: 1
-											});
+											if (!contine) {
+												console.log(imageKey);
+												channel.programmes[i].categories.push({
+													keyword: imageKey.text,
+													occurences: 1
+												});
+											}
+										} catch (e) {
+											console.log(e);
 										}
-
 									});
-									channel.programmes[i].categoriesCount += data.imageKeywords.length;
+									channel.programmes[i].categoriesOccurences = (channel.programmes[i].categoriesOccurences || 0) + data.imageKeywords.length;
 									channel.save();
 									break;
 								}
 							};
 						}
 					})
-				})
+				}).catch(function (err) {
+					console.log(err.message);
+				});
 			} catch (e) {
 				console.log(e)
 			}

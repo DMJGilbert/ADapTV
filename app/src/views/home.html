@@ -44,11 +44,11 @@
 			</div>
 		</div>
 		<div style="background-color: #FFF;">
-			<div style="text-align: center; margin: 10px;" ng-repeat="category in channel.categories | orderBy:'-count' | limitTo:10">
+			<div style="text-align: center; margin: 10px;" ng-repeat="category in channel.categories | orderBy:'-occurences' | filter: greaterThan('occurences', 0) | limitTo:10">
 				<div style="display: inline-block; width: 100%; margin: 0 auto;">
 					<div style="width:80%; margin: 0 auto;" class="ui progress" id="example1">
-						<div style="width: {{ ((category.count / channel.categoryCount) * 100) }}%" class="bar"></div>
-						<div class="label"><strong>{{ category.keyword }}</strong> {{ category.count }} approx. occurences</div>
+						<div style="width: {{ ((category.occurences / channel.categoriesOccurences) * 100) }}%" class="bar"></div>
+						<div class="label"><strong>{{ category.keyword }}</strong> {{ category.occurences }} approx. occurences</div>
 					</div>
 				</div>
 

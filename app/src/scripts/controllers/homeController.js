@@ -25,7 +25,7 @@ ADapTV.controller('HomeController', ['$scope', '$rootScope', '$http', '$location
 
 							for (var k = 0; k < data[i].programmes[j].categories.length; k++) {
 								data[i].categories.push(data[i].programmes[j].categories[k]);
-								data[i].categoriesCount = data[i].programmes[j].categoriesCount;
+								data[i].categoriesOccurences = data[i].programmes[j].categoriesOccurences;
 							}
 
 							//							for (var k = 0; k < 10; k++) {
@@ -53,11 +53,17 @@ ADapTV.controller('HomeController', ['$scope', '$rootScope', '$http', '$location
 
 		$scope.reloadData();
 
-		//		setInterval(function () {
-		//			$scope.$apply(function () {
-		//				$scope.reloadData();
-		//			})
-		//		}, 3000);
+		$scope.greaterThan = function (prop, val) {
+			return function (item) {
+				return item[prop] > val;
+			}
+		}
+
+		setInterval(function () {
+			$scope.$apply(function () {
+				$scope.reloadData();
+			})
+		}, 3000);
 
 	}
 	]);
