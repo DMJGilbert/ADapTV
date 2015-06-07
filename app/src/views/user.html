@@ -1,14 +1,41 @@
-<div style="width: 100%; margin: 0 auto; text-align: center;">
-	<div style="width: 70%; margin: 30px auto;">
-		<div class="ui dividing header">
-			<div class="content">
-				User A
+<div style="height: 100px; background-color: #000;">
+	<img style="margin: 0 auto; width: 300px;" class="ui small image" src="/images/logo-light.png">
+</div>
+
+<div style="width: 100%; text-align: center;">
+	<div style="margin-top: 20px; text-align: center;">
+		<div ng-href="/user" style="cursor: pointer; background-color: #000; color: #fff; border: 1px solid #000; display: inline-block; margin: 5px; margin: 0 auto;">
+			<i style="margin: 0 auto;" class="user icon"></i>
+		</div>
+		<a ng-href="/dashboard">
+			<div style="cursor: pointer; border: 1px solid #000; display: inline-block; margin: 5px; margin: 0 auto;">
+				<i style="margin: 0 auto;" class="list icon"></i>
+			</div>
+		</a>
+	</div>
+
+	<div style="border: 1px solid #000; overflow: auto; width: 70%; text-align: center; margin: 0 auto; margin-top: 20px;" >
+		<div style="background-color: rgba(179, 179, 179, 0.2); height: 200px;">
+			<div style="display: inline-block; text-align: left; width: 100%;">
+				<div style="font-size: 30px;">
+					User A
+				</div>
+				<div style="font-size: 20px;" class="now">
+					<strong>Watching:</strong>
+				</div>
 			</div>
 		</div>
-		<div>
-			<div style="display: inline-block;">
-				<div style="height: 60px;" class="now">
-					<strong>Watching:</strong> {{ channel.now.title }}
+		<div style="background-color: #FFF;">
+			<div style="text-align: center; margin: 10px;" ng-repeat="category in user.categories | orderBy:'-weighting' | limitTo:10">
+				<div style="display: inline-block; width: 100%; margin: 0 auto;">
+					<div style="width:80%; margin: 0 auto;" class="ui progress" percent="{{ (category.weighting * 100) }}" id="example1">
+						<div class="bar"></div>
+						<div class="label"><strong>{{ category.keyword }}</strong> {{ (category.weighting * 100) }}%</div>
+					</div>
+				</div>
+
+				<div style="display: inline-block; width: 75%;">
+
 				</div>
 			</div>
 		</div>

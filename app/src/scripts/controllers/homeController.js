@@ -23,16 +23,16 @@ ADapTV.controller('HomeController', ['$scope', '$rootScope', '$http', '$location
 								});
 							}
 
-							//							for (var k = 0; k < data[i].programmes[j].categories.length; k++) {
-							//								data[i].categories.push(data[i].programmes[j].categories[k]);
-							//							}
-
-							for (var k = 0; k < 10; k++) {
-								data[i].categories.push({
-									'keyword': 'Test',
-									'weighting': 0.7
-								});
+							for (var k = 0; k < data[i].programmes[j].categories.length; k++) {
+								data[i].categories.push(data[i].programmes[j].categories[k]);
 							}
+
+							//							for (var k = 0; k < 10; k++) {
+							//								data[i].categories.push({
+							//									'keyword': 'Test',
+							//									'weighting': 0.7
+							//								});
+							//							}
 
 							if (data[i].programmes[j + 1]) {
 								data[i].next = data[i].programmes[j + 1];
@@ -45,13 +45,6 @@ ADapTV.controller('HomeController', ['$scope', '$rootScope', '$http', '$location
 				}
 
 				$scope.channels = data;
-
-				console.log($scope.channels);
-
-				setTimeout(function () {
-					$('.ui.progress').progress();
-				}, 1000);
-
 			});
 		}
 

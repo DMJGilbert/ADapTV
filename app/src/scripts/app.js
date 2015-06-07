@@ -23,6 +23,10 @@ ADapTV.config(['$routeProvider', '$locationProvider',
 			templateUrl: 'views/adverts.html',
 			controller: 'AdvertsController'
 		}).
+		when('/user', {
+			templateUrl: 'views/user.html',
+			controller: 'UserController'
+		}).
 		otherwise({
 			redirectTo: '/dashboard'
 		});
