@@ -21,7 +21,7 @@ ADapTV.config(['$routeProvider', '$locationProvider',
 		}).
 		when('/adverts', {
 			templateUrl: 'views/adverts.html',
-			controller: 'AdvertsController'
+			controller: 'AdvertController'
 		}).
 		when('/user', {
 			templateUrl: 'views/user.html',

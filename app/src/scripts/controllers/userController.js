@@ -4,8 +4,8 @@ ADapTV.controller('UserController', ['$scope', '$rootScope', '$http', '$location
 		'use strict';
 
 		$scope.reloadData = function () {
-			User.get({}, function (data) {
-
+			User.query({}, function (data) {
+				$scope.users = data;
 			});
 		}
 

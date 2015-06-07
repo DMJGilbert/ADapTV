@@ -29,17 +29,6 @@ var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function (callback) {});
 
-var User = require('./server/schemas/users.schema.js');
-
-var user = new User({
-	name: 'User A',
-	mac: '00:26:AA:A1:E7:80'
-});
-
-user.save(function (err, user) {
-	if (err) return console.error(err);
-}
-
 io.on('connection', function (socket) {
 	socket.on('channels', function (data) {
 		Channels.find({

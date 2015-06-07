@@ -12,6 +12,11 @@
 		<div ng-href="/dashboard" style="cursor: pointer; background-color: #000; color: #fff; border: 1px solid #000; display: inline-block; margin: 5px; margin: 0 auto;">
 			<i style="margin: 0 auto;" class="list icon"></i>
 		</div>
+		<a ng-href="/adverts">
+			<div style="cursor: pointer; border: 1px solid #000; display: inline-block; margin: 5px; margin: 0 auto;">
+				<i style="margin: 0 auto;" class="announcement icon"></i>
+			</div>
+		</a>
 	</div>
 
 	<div style="border: 1px solid #000; overflow: auto; width: 70%; text-align: center; margin: 0 auto; margin-top: 20px;" ng-repeat="channel in channels | orderBy:'serviceId'">
@@ -32,6 +37,9 @@
 				</div>
 				<div style="font-size: 20px;" class="next">
 					<strong>Viewers:</strong> 1
+				</div>
+				<div style="font-size: 20px;" class="next">
+					<strong>Adverts:</strong> false
 				</div>
 			</div>
 		</div>

@@ -12,13 +12,18 @@
 				<i style="margin: 0 auto;" class="list icon"></i>
 			</div>
 		</a>
+		<a ng-href="/adverts">
+			<div style="cursor: pointer; border: 1px solid #000; display: inline-block; margin: 5px; margin: 0 auto;">
+				<i style="margin: 0 auto;" class="announcement icon"></i>
+			</div>
+		</a>
 	</div>
 
-	<div style="border: 1px solid #000; overflow: auto; width: 70%; text-align: center; margin: 0 auto; margin-top: 20px;" >
+	<div style="border: 1px solid #000; overflow: auto; width: 70%; text-align: center; margin: 0 auto; margin-top: 20px;">
 		<div style="background-color: rgba(179, 179, 179, 0.2); height: 200px;">
 			<div style="display: inline-block; text-align: left; width: 100%;">
 				<div style="font-size: 30px;">
-					User A
+					{{ $scope.users[0].name }}
 				</div>
 				<div style="font-size: 20px;" class="now">
 					<strong>Watching:</strong>

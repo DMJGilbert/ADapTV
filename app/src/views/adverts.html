@@ -1,0 +1,66 @@
+
+<div style="height: 100px; background-color: #000;">
+	<img style="margin: 0 auto; width: 300px;" class="ui small image" src="/images/logo-light.png">
+</div>
+
+<div style="width: 100%; text-align: center;">
+	<div style="margin-top: 20px; text-align: center;">
+		<a ng-href="/user">
+			<div style="cursor: pointer; border: 1px solid #000; display: inline-block; margin: 5px; margin: 0 auto;">
+				<i style="margin: 0 auto;" class="user icon"></i>
+			</div>
+		</a>
+		<a ng-href="/dashboard">
+			<div style="cursor: pointer; border: 1px solid #000; display: inline-block; margin: 5px; margin: 0 auto;">
+				<i style="margin: 0 auto;" class="list icon"></i>
+			</div>
+		</a>
+		<div style="cursor: pointer; border: 1px solid #000; background-color: #000; color: #fff; display: inline-block; margin: 5px; margin: 0 auto;">
+			<i style="margin: 0 auto;" class="announcement icon"></i>
+		</div>
+	</div>
+
+	<div style="width: 70%; margin: 0 auto; margin-top: 20px;">
+		<form>
+			<div class="ui form">
+				<div class="ui field">
+					<label>Name</label>
+					<input type="text" ng-model="newAdvert.name" name="name" placeholder="Name">
+				</div>
+				<div class="ui field">
+					<label>URL</label>
+					<input type="text" ng-model="newAdvert.url" name="name" placeholder="URL">
+				</div>
+			</div>
+			<div style="margin-top: 10px;" ng-click="saveAdvert();" class="ui submit button">Save</div>
+		</form>
+	</div>
+
+	<div style="border: 1px solid #000; overflow: auto; width: 70%; text-align: center; margin: 0 auto; margin-top: 20px;" ng-repeat="advert in adverts">
+		<div style="background-color: rgba(179, 179, 179, 0.2); height: 200px;">
+			<div style="display: inline-block; float: left;">
+				<img class="ui image" style="width: 300px; height: 200px;" src="">
+			</div>
+
+			<div style="display: inline-block; text-align: left; width: 64%;">
+				<div style="font-size: 30px;">
+					{{ advert.name }}
+				</div>
+			</div>
+		</div>
+		<div style="background-color: #FFF;">
+			<div style="text-align: center; margin: 10px;" ng-repeat="category in advert.categories | orderBy:'-count' | limitTo:10">
+				<div style="display: inline-block; width: 100%; margin: 0 auto;">
+					<div style="width:80%; margin: 0 auto;" class="ui progress" id="example1">
+						<div style="width: {{ ((category.count / advert.categoryCount) * 100) }}%" class="bar"></div>
+						<div class="label"><strong>{{ category.keyword }}</strong> {{ category.count }} approx. occurences</div>
+					</div>
+				</div>
+
+				<div style="display: inline-block; width: 75%;">
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
