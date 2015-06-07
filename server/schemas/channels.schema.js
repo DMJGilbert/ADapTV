@@ -16,8 +16,9 @@ var channelsSchema = mongoose.Schema({
 		epgChecked: Boolean,
 		categories: [{
 			keyword: String,
-			weighting: Number
-		}]
+			count: Number
+		}],
+		categoriesCount: Number
 	}]
 })
 

@@ -33,11 +33,12 @@ setInterval(function () {
 					data.keywords.forEach(function (key) {
 						cats.push({
 							keyword: key.text,
-							weighting: key.relevance
+							count: 1
 						})
 					})
 					channel.programmes[i].categories = cats;
 					channel.programmes[i].epgChecked = true;
+					channel.programmes[i].categoriesCount = cats.length;
 					channel.save();
 				});
 			}
