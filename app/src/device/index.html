@@ -9,13 +9,32 @@
 </head>
 
 <body>
-
-
+	<script src="/socket.io/socket.io.js"></script>
 	<script>
 		window.stb = createStbPlugin();
 		stb.enableVideo();
+		var channels;
 
-		stb.play("http://bbc.co.uk/mediaselector/playlists/hls/mobile_wifi/ak/bbc1.m3u8");
+		//stb.play("http://bbc.co.uk/mediaselector/playlists/hls/mobile_wifi/ak/bbc1.m3u8");
+
+		socket = io('', {
+			'reconnection limit': Number.MAX_VALUE,
+			'max reconnection attempts': Number.MAX_VALUE,
+			'connect timeout': 7000
+		});
+
+		socket.on('connect', function () {
+			socket.emit('channels', {});
+
+			socket.on('advert', function (data) {
+
+			});
+
+			socket.on('channels', function (data) {
+				channels = data;
+				stb.play(data[1].stream);
+			});
+		});
 
 		function createStbPlugin() {
 			try {
@@ -37,13 +56,25 @@
 			try {
 				var code = event.keyCode;
 				if (code == stb.KEY_A) {
-					location.href = "http://http://192.168.137.1:3700/device";
-				}
-				if (code == stb.KEY_D) {
+					location.href = "http://192.168.137.1:3700/device";
+				} else if (code == stb.KEY_D) {
 					stb.launchNativeUi();
-
+				} else if (code == 49) {
+					stb.play(channels[0].stream);
+				} else if (code == 50) {
+					stb.play(channels[1].stream);
+				} else if (code == 51) {
+					stb.play(channels[2].stream);
+				} else if (code == 52) {
+					stb.play(channels[3].stream);
+				} else if (code == 53) {
+					stb.play(channels[4].stream);
+				} else if (code == 54) {
+					stb.play(channels[5].stream);
 				}
-			} catch (e) {}
+			} catch (e) {
+				console.log(e);
+			}
 		}
 	</script>
 </body>
