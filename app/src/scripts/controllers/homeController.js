@@ -18,27 +18,20 @@ ADapTV.controller('HomeController', ['$scope', '$rootScope', '$http', '$location
 
 							if (data[i].programmes[j].category) {
 								data[i].categories.push({
-									'keyword': data[i].programmes[j].category,
+									'keyword': data[i].programmes[j].category.toUpperCase(),
 									'weighting': 1
 								});
 							}
 
 							for (var k = 0; k < data[i].programmes[j].categories.length; k++) {
+								data[i].programmes[j].categories[k] = data[i].programmes[j].categories[k].toUpperCase();
 								data[i].categories.push(data[i].programmes[j].categories[k]);
 								data[i].categoriesOccurences = data[i].programmes[j].categoriesOccurences;
 							}
 
-							//							for (var k = 0; k < 10; k++) {
-							//								data[i].categories.push({
-							//									'keyword': 'Test',
-							//									'weighting': 0.7
-							//								});
-							//							}
-
 							if (data[i].programmes[j + 1]) {
 								data[i].next = data[i].programmes[j + 1];
 							}
-
 
 							break;
 						}

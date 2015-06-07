@@ -21,21 +21,21 @@
 
 	<div style="border: 1px solid #000; overflow: auto; width: 70%; text-align: center; margin: 0 auto; margin-top: 20px;">
 		<div style="background-color: rgba(179, 179, 179, 0.2); height: 200px;">
-			<div style="display: inline-block; text-align: left; width: 100%;">
+			<div style="display: inline-block; text-align: left; width: 64%;">
 				<div style="font-size: 30px;">
-					{{ $scope.users[0].name }}
+					{{ user.name }}
 				</div>
 				<div style="font-size: 20px;" class="now">
-					<strong>Watching:</strong>
+					<strong ng-show="user.watching > 0">Watching: {{ user.watching }}</strong>
 				</div>
 			</div>
 		</div>
 		<div style="background-color: #FFF;">
-			<div style="text-align: center; margin: 10px;" ng-repeat="category in user.categories | orderBy:'-weighting' | limitTo:10">
+			<div style="text-align: center; margin: 10px;" ng-repeat="category in user.categories | orderBy:'-occurences' | filter: greaterThan('occurences', 0) | limitTo:10">
 				<div style="display: inline-block; width: 100%; margin: 0 auto;">
-					<div style="width:80%; margin: 0 auto;" class="ui progress" percent="{{ (category.weighting * 100) }}" id="example1">
-						<div class="bar"></div>
-						<div class="label"><strong>{{ category.keyword }}</strong> {{ (category.weighting * 100) }}%</div>
+					<div style="width:80%; margin: 0 auto;" class="ui progress" id="example1">
+						<div style="width: {{ ((category.occurences / channel.categoriesOccurences) * 100) }}%" class="bar"></div>
+						<div class="label"><strong>{{ category.keyword }}</strong> {{ category.occurences }} approx. occurences</div>
 					</div>
 				</div>
 

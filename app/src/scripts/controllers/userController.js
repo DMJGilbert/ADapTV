@@ -5,7 +5,12 @@ ADapTV.controller('UserController', ['$scope', '$rootScope', '$http', '$location
 
 		$scope.reloadData = function () {
 			User.query({}, function (data) {
-				$scope.users = data;
+
+				for (var i = 0; i < data[i].programmes[j].categories.length; i++) {
+					data[0].categories[i] = data[0].categories[i].toUpperCase();
+				}
+
+				$scope.user = data[0];
 			});
 		}
 
@@ -13,11 +18,17 @@ ADapTV.controller('UserController', ['$scope', '$rootScope', '$http', '$location
 
 		$scope.reloadData();
 
-		//		setInterval(function () {
-		//			$scope.$apply(function () {
-		//				$scope.reloadData();
-		//			})
-		//		}, 3000);
+		setInterval(function () {
+			$scope.$apply(function () {
+				$scope.reloadData();
+			})
+		}, 3000);
+
+		$scope.greaterThan = function (prop, val) {
+			return function (item) {
+				return item[prop] > val;
+			}
+		}
 
 	}
 	]);
