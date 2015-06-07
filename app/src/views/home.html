@@ -22,7 +22,7 @@
 
 			<div style="display: inline-block; text-align: left; width: 64%;">
 				<div style="font-size: 30px;">
-					{{ channel.name }} <i style="color: green;" class="checkmark icon"></i>
+					{{ channel.name }}
 				</div>
 				<div style="font-size: 20px;" class="now">
 					<strong>Now:</strong> {{ channel.now.title }}
@@ -36,11 +36,11 @@
 			</div>
 		</div>
 		<div style="background-color: #FFF;">
-			<div style="text-align: center; margin: 10px;" ng-repeat="category in channel.categories | orderBy:'-weighting' | limitTo:10">
+			<div style="text-align: center; margin: 10px;" ng-repeat="category in channel.categories | orderBy:'-count' | limitTo:10">
 				<div style="display: inline-block; width: 100%; margin: 0 auto;">
 					<div style="width:80%; margin: 0 auto;" class="ui progress" id="example1">
-						<div style="width: {{ (category.weighting * 100) }}%" class="bar"></div>
-						<div class="label"><strong>{{ category.keyword }}</strong> {{ (category.weighting * 100) }}%</div>
+						<div style="width: {{ ((category.count / channel.categoryCount) * 100) }}%" class="bar"></div>
+						<div class="label"><strong>{{ category.keyword }}</strong> {{ category.count }} approx. occurences</div>
 					</div>
 				</div>
 

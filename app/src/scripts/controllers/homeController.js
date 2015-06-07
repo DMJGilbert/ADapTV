@@ -25,6 +25,7 @@ ADapTV.controller('HomeController', ['$scope', '$rootScope', '$http', '$location
 
 							for (var k = 0; k < data[i].programmes[j].categories.length; k++) {
 								data[i].categories.push(data[i].programmes[j].categories[k]);
+								data[i].categoriesCount = data[i].programmes[j].categoriesCount;
 							}
 
 							//							for (var k = 0; k < 10; k++) {
