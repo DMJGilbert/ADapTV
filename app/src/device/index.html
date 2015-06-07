@@ -32,7 +32,11 @@
 
 			socket.on('channels', function (data) {
 				channels = data;
-				stb.play(data[1].stream);
+				stb.play(data[0].stream);
+				socket.emit('viewing', {
+					index: 0,
+					name: channels[0].name
+				});
 			});
 		});
 
@@ -57,20 +61,46 @@
 				var code = event.keyCode;
 				if (code == stb.KEY_A) {
 					location.href = "http://192.168.137.1:3700/device";
+				} else if (code == stb.KEY_C) {
+					location.reload();
 				} else if (code == stb.KEY_D) {
 					stb.launchNativeUi();
 				} else if (code == 49) {
 					stb.play(channels[0].stream);
+					socket.emit('viewing', {
+						index: 0,
+						name: channels[0].name
+					});
 				} else if (code == 50) {
 					stb.play(channels[1].stream);
+					socket.emit('viewing', {
+						index: 1,
+						name: channels[1].name
+					});
 				} else if (code == 51) {
 					stb.play(channels[2].stream);
+					socket.emit('viewing', {
+						index: 2,
+						name: channels[2].name
+					});
 				} else if (code == 52) {
 					stb.play(channels[3].stream);
+					socket.emit('viewing', {
+						index: 3,
+						name: channels[3].name
+					});
 				} else if (code == 53) {
 					stb.play(channels[4].stream);
+					socket.emit('viewing', {
+						index: 4,
+						name: channels[4].name
+					});
 				} else if (code == 54) {
 					stb.play(channels[5].stream);
+					socket.emit('viewing', {
+						index: 5,
+						name: channels[5].name
+					});
 				}
 			} catch (e) {
 				console.log(e);

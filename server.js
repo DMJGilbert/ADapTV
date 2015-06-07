@@ -26,7 +26,6 @@ app.use('/lib', express.static('app/lib'));
 
 mongoose.connect('mongodb://localhost/adaptv');
 
-
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function (callback) {});
@@ -47,7 +46,7 @@ io.on('connection', function (socket) {
 			}],
 			providerId: 3
 		}).sort({
-			'providerId': 1
+			'serviceId': 1
 		}).exec(function (err, data) {
 			socket.emit('channels', data);
 		});
@@ -55,7 +54,10 @@ io.on('connection', function (socket) {
 
 	socket.on('viewing', function (data) {
 		Users.findOne({}, function (err, user) {
-			user.watching = data;
+			user.watching = data.index;
+			user.actions.push({
+				action: 'Changed channel to ' + data.name
+			});
 			user.save();
 		})
 	});
@@ -67,6 +69,12 @@ io.on('connection', function (socket) {
 			user.save();
 		})
 	})
+});
+
+app.all('/*', function (req, res, next) {
+	res.sendFile('index.html', {
+		root: './app/src'
+	});
 });
 
 // for when not using socket.io
